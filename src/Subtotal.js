@@ -1,14 +1,21 @@
 import React from "react";
-import "./Subtotal.css";
-import CurrencyFormat from "react-currency-format";
-import { CardTravel } from "@material-ui/icons";
+
+//State Management
 import { useStateValue } from "./StateProvider";
 import { getCartTotal } from "./Reducer";
+
+//React Router
 import { useHistory } from "react-router-dom";
+
+// Converts floating point numbers (floats) into currency format
+import CurrencyFormat from "react-currency-format";
+
+// Styles
+import "./Subtotal.css";
 
 const Subtotal = () => {
   const history = useHistory();
-  const [{ cart }, dispatch] = useStateValue();
+  const [{ cart }] = useStateValue();
 
   return (
     <div className="subtotal">

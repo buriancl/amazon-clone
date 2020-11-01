@@ -1,6 +1,12 @@
 import React, { useState } from "react";
+
+//React Router
 import { Link, useHistory } from "react-router-dom";
+
+//Auth
 import { auth } from "./firebase";
+
+//Styles
 import "./Login.css";
 
 const Login = () => {

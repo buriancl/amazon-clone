@@ -1,11 +1,17 @@
 import React from "react";
-import "./Checkout.css";
-import Subtotal from "./Subtotal";
-import { useStateValue } from "./StateProvider";
+
+//Components
 import CheckoutProduct from "./CheckoutProduct";
+import Subtotal from "./Subtotal";
+
+// State Management
+import { useStateValue } from "./StateProvider";
+
+// Style
+import "./Checkout.css";
 
 const Checkout = () => {
-  const [{ cart, user }, dispatch] = useStateValue();
+  const [{ cart, user }] = useStateValue();
 
   return (
     <div className="checkout">

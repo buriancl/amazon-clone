@@ -1,12 +1,29 @@
 import React, { useEffect, useState } from "react";
-import "./Payment.css";
+
+// Components
 import CheckoutProduct from "./CheckoutProduct";
+
+//React Router
 import { Link, useHistory } from "react-router-dom";
+
+//State Management
 import { useStateValue } from "./StateProvider";
-import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
-import CurrencyFormat from "react-currency-format";
 import { getCartTotal } from "./Reducer";
+
+//Stripe
+import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
+
+//Converts Floating Point Numbers (Floats) into currency format
+import CurrencyFormat from "react-currency-format";
+
+//Firebase Database
+import { db } from "./firebase";
+
+// Backend?
 import Axios from "./axios";
+
+// Styles
+import "./Payment.css";
 
 const Payment = () => {
   const [{ cart, user }, dispatch] = useStateValue();
@@ -36,8 +53,6 @@ const Payment = () => {
     getClientSecret();
   }, [cart]);
 
-  console.log("THE SCECRET IS >>> ", clientSecret);
-
   const handleSubmit = async (event) => {
     // do stripe stuff...
     event.preventDefault();
@@ -52,6 +67,16 @@ const Payment = () => {
       })
       .then(({ paymentIntent }) => {
         //paymentIntent = payment confirmation
+
+        db.collection("users")
+          .doc(user?.uid)
+          .collection("orders")
+          .doc(paymentIntent.id)
+          .set({
+            cart: cart,
+            amount: paymentIntent.amount,
+            created: paymentIntent.created,
+          });
 
         setSucceeded(true);
         setError(null);

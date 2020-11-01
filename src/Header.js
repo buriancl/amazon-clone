@@ -1,13 +1,21 @@
 import React from "react";
+
+//State Management
+import { useStateValue } from "./StateProvider";
+
+//React Router
+import { Link } from "react-router-dom";
+
+// Auth
+import { auth } from "./firebase";
+
+//Style
 import "./Header.css";
 import SearchIcon from "@material-ui/icons/Search";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
-import { Link } from "react-router-dom";
-import { useStateValue } from "./StateProvider";
-import { auth } from "./firebase";
 
 const Header = () => {
-  const [{ cart, user }, dispatch] = useStateValue();
+  const [{ cart, user }] = useStateValue();
 
   const handleAuthentication = () => {
     if (user) {
@@ -41,10 +49,12 @@ const Header = () => {
           </div>
         </Link>
 
-        <div className="header__option">
-          <span className="header__optionLineOne">Returns</span>
-          <span className="header__optionLineTwo">& Orders</span>
-        </div>
+        <Link to="/orders">
+          <div className="header__option">
+            <span className="header__optionLineOne">Returns</span>
+            <span className="header__optionLineTwo">& Orders</span>
+          </div>
+        </Link>
 
         <div className="header__option">
           <span className="header__optionLineOne">Your</span>

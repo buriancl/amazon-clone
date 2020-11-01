@@ -16,7 +16,7 @@ const reducer = (state, action) => {
         cart: [...state.cart, action.item],
       };
 
-    case "EMPTY_BASKET":
+    case "EMPTY_CART":
       return {
         ...state,
         cart: [],
